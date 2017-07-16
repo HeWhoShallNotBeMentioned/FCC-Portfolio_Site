@@ -61,6 +61,7 @@ body {
 .card {
   border-color: black;
   margin-bottom: 20px;
+  display: inline-block;
 }
 
 .card-block {
