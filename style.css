@@ -52,8 +52,17 @@ body {
 
 .projects-config {
   background-color: #9068be;
-  color:#e1e8f0;
 }
-.port-header {
-  margin-top:30px;
+
+.img-head{
+ margin-bottom: 30px;
+}
+
+.card {
+  border-color: black;
+  margin-bottom: 20px;
+}
+
+.card-block {
+  background-color: #eecccc;
 }
