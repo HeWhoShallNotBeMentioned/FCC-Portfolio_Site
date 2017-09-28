@@ -51,15 +51,18 @@ body {
 }
 
 .projects-config {
-  background-color: #9068be;
+  /*background-color: #9068be;*/
+  background-color: black;
 }
 
+
 .img-head{
- margin-bottom: 30px;
+  border-radius: 60px;
+  margin-bottom: 30px;
 }
 
 .card {
-  border-color: black;
+  border-color: white;
   margin-bottom: 20px;
   display: inline-block;
 }
