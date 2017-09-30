@@ -70,3 +70,16 @@ body {
 .card-block {
   background-color: #eecccc;
 }
+
+#cloud {
+  height: 300px;
+}
+
+#cloud span {
+  cursor: pointer;
+}
+
+#details {
+  height: 30px;
+  color: white;
+}
