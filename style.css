@@ -17,7 +17,8 @@ body {
 }
 
 .anchor-padding {
-  padding-top: 50px;       margin-top: -50px;
+  padding-top: 50px;
+  margin-top: -50px;
 }
 
 
@@ -57,8 +58,8 @@ body {
 
 
 .img-head{
-  border-radius: 60px;
-  margin-bottom: 30px;
+  border-radius: 20px;
+  margin-bottom: 5px;
 }
 
 .card {
@@ -72,14 +73,18 @@ body {
 }
 
 #cloud {
-  height: 300px;
+  border-radius: 20px;
+  height: 200px;
 }
 
-#cloud span {
-  cursor: pointer;
+#buttons {
+  padding-bottom: 10px;
 }
 
-#details {
-  height: 30px;
+#buttons button {
   color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  border-bottom:1px solid #444
 }
