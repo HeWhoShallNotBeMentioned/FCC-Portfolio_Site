@@ -66,6 +66,7 @@ body {
   border-color: white;
   margin-bottom: 20px;
   display: inline-block;
+  overflow: hidden
 }
 
 .card-block {
@@ -87,4 +88,12 @@ body {
   border: none;
   cursor: pointer;
   border-bottom:1px solid #444
+}
+
+.card-img-top  {
+  transition: transform .7s ease-out;
+}
+
+.card-img-top:hover  {
+  transform: scale(1.2);
 }
