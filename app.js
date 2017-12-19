@@ -1,5 +1,5 @@
 console.log("I can see the js file");
-
+//Interactive Buttons
 (function(){
 
           let $projects = $('.projects');
@@ -19,11 +19,32 @@ console.log("I can see the js file");
               });
             }
           });
-          console.log("tagged ", tagged);
 
-          $.each(tagged, function(tagName) {
-            $('<button/>', {
-              text: tagName + ' (' + tagged[tagName].length + ')',
+          function sortObject(obj) {
+            var arr = [];
+            var prop;
+            for (prop in obj) {
+              if (obj.hasOwnProperty(prop)) {
+                arr.push({
+                  'key': prop,
+                  'value': obj[prop]
+                });
+              }
+          }
+              arr.sort(function(a, b) {
+                return a["key"] > b["key"];
+              });
+              return arr;
+          }
+
+          let sorted = sortObject(tagged);
+
+          $.each(sorted, function(val, val2) {
+            let key = Object.values(val).join("");
+            let num = Object.keys(val2).length;
+             $('<button/>', {
+              text: val2.key + ' (' + val2.value.length + ')',
+              class: "myHover",
               click: function () {
                 $(this)
                   .addClass('active')
@@ -31,14 +52,14 @@ console.log("I can see the js file");
                   .removeClass('active');
                 $projects
                   .hide()
-                  .filter(tagged[tagName])
+                  .filter(val2.value)
                   .show();
               }
             }).appendTo($buttons);
           });
 
-          let tagged2 = Object.entries(tagged);
-
+          //Word Box
+           let tagged2 = Object.entries(tagged);
 
           let list = tagged2.map(function(word) {
               let x = word[0];
@@ -48,8 +69,8 @@ console.log("I can see the js file");
               }
             return [x, y];
           });
-          
+
           console.log("list ", list);
-          WordCloud(document.getElementById("cloud"), {list: list, color: "random-light", backgroundColor: "black", gridSize: 30, weightFactor: 10,});
+          WordCloud(document.getElementById("cloud"), {list: list, color: "random-light", backgroundColor: "black", gridSize: 30, weightFactor: 8});
 
         }());
