@@ -32,7 +32,7 @@ console.log("I can see the js file");
               }
           }
               arr.sort(function(a, b) {
-                return a["key"] > b["key"];
+                return a["key"].toUpperCase() > b["key"].toUpperCase();
               });
               return arr;
           }
@@ -64,7 +64,7 @@ console.log("I can see the js file");
           let list = tagged2.map(function(word) {
               let x = word[0];
               let y = word[1].length;
-              if (x == "all") {
+              if (x == "All") {
                return ["",0];
               }
             return [x, y];
