@@ -1,45 +1,44 @@
 body {
   padding-top: 50px;
   background-color: #4285F4;
+  /* background-image: url("https://wallpaperscraft.com/image/highlights_circles_spots_light_background_39040_1920x1080.jpg"); */
+  background-image: url("https://wallpaperscraft.com/image/bricks_texture_background_wall_92883_1366x768.jpg");
 }
 
 .navbar {
-  background-color: #2BBBAD
-
+  /* background-color: #2BBBAD; */
+  background-color: #c0ded9;
+  background-image: url("https://images.vexels.com/media/users/3/125411/preview2/8e2fb93595079d63276a2c64f73e4804-clear-geometric-shapes-abstract-background.jpg");
 }
 
 .navbar .navbar-brand {
   color: #2E2E2E;
 }
 
- .navbar .nav-link {
+ /* .navbar .nav-link {
   color:white;
-}
+} */
 
 .anchor-padding {
   padding-top: 50px;
   margin-top: -50px;
 }
 
-
 .freddy {
   background-image: url("http://www.imperialenterpriselab.com/wp-content/uploads/2017/02/software.jpg");
-  background-size:100% auto;
-
+  background-size: 100% auto;
 }
 
 .button-format {
-
   padding-top: 250px;
   padding-bottom: 260px;
-
 }
 
 .button-style {
-  color: white;
-  background-color: #c62828;
+  color: #F0E68C;
+  background-color: #4040a1;
   border-style: double;
-  border-color: black;
+  border-color: #DAA520;
   border-width: 3px;
   border-radius: 5px;
   margin: 0 20px;
@@ -52,7 +51,6 @@ body {
 }
 
 .projects-config {
-  /*background-color: #9068be;*/
   background-color: black;
 }
 
@@ -70,8 +68,15 @@ body {
 }
 
 .card-block {
-  background-color: #eecccc;
+  /* background-color: #618685; */
+  background-color: #c5d5c5;
+  color: black;
 }
+
+.card-block a {
+  color:  #4040a1;
+}
+
 
 #cloud {
   border-radius: 20px;
@@ -95,7 +100,7 @@ body {
 #buttons button.myHover:hover {
   background-color: white;
   color: black;
-  border: LightSeaGreen 2px solid;
+  border: #c5d5c5 2px solid;
   border-radius: 10px
 }
 
