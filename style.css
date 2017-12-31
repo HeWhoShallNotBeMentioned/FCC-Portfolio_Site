@@ -72,6 +72,12 @@ div.transbox p {
   background-color: black;
 }
 
+#portfolio {
+  font-size: 120px;
+  /* color: #ff6f69; */
+  color: #d9ad7c;
+  font-family: 'Cinzel Decorative', cursive;
+}
 
 .img-head{
   border-radius: 20px;
