@@ -7,12 +7,11 @@
 ## Description
 
 _{This is the second FCC project. It introduced me to further Bootstrap techniques such as navbar, anchor tags, buttons, and cards.
-
-  I would like to enter a search bar for project key words or even a word cloud.}_
+}_
 
 ## Setup/Installation Requirements
 
-_{Download the files and open index.html. There are CDN's used for Bootstrap so a live internet connection is recommended}_
+_{Download the files and open index.html. There are CDN's used for Bootstrap so a live internet connection is recommended.}_
 
 ## Known Bugs
 
@@ -24,7 +23,7 @@ _{cunderwoodmn [at] gmail {dot} com}_
 
 ## Technologies Used
 
-_{html5, css3, bootstrap 4}_
+_{html5, css3, bootstrap 4, vanilla-js, WordCloud2}_
 
 ### License
 
