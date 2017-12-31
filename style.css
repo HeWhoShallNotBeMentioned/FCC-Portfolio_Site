@@ -30,6 +30,7 @@ body {
 
 .button-style {
   color: #F0E68C;
+  font-family: 'Quattrocento', serif;
   background-color: #4040a1;
   border-style: double;
   border-color: #DAA520;
@@ -59,6 +60,12 @@ div.transbox p {
   background-color:black;
   color: white;
   padding: 30px 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.bio-title {
+  font-size: 20px;
+  font-family: 'Spectral SC', serif;
 }
 
 .projects-config {
@@ -77,15 +84,20 @@ div.transbox p {
   display: inline-block;
   overflow: hidden
 }
+.card-title {
+  font-family: 'Spectral SC', serif;
+}
 
 .card-block {
-  /* background-color: #618685; */
+  font-family: 'Open Sans', sans-serif;
   background-color: #c5d5c5;
   color: black;
 }
 
+
 .card-block a {
   color:  #4040a1;
+  font-family: 'Quattrocento', serif;
 }
 
 
@@ -106,6 +118,7 @@ div.transbox p {
   cursor: pointer;
   border-radius: 10px;
   margin-left: 5px;
+  font-family: 'Quattrocento', serif;
 }
 
 #buttons button.myHover:hover {

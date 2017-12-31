@@ -71,6 +71,6 @@ console.log("I can see the js file");
           });
 
           console.log("list ", list);
-          WordCloud(document.getElementById("cloud"), {list: list, color: "random-light", backgroundColor: "black", gridSize: 30, weightFactor: 8});
+          WordCloud(document.getElementById("cloud"), {list: list, color: "random-light", backgroundColor: "black", gridSize: 30, weightFactor: 8, fontFamily: 'Nova Slim'});
 
         }());
