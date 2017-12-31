@@ -1,23 +1,14 @@
 body {
-  padding-top: 50px;
   background-color: #4285F4;
   /* background-image: url("https://wallpaperscraft.com/image/highlights_circles_spots_light_background_39040_1920x1080.jpg"); */
-  background-image: url("https://wallpaperscraft.com/image/bricks_texture_background_wall_92883_1366x768.jpg");
+  background-image: url("https://s3.amazonaws.com/videoblocks-content/video/thumbnail/HPOKFbR/abstract-animated-computer-script-programming-code-as-technology-background-1920x1080-full-hd-footage_qktlwvii__F0000.png");
 }
 
 .navbar {
-  /* background-color: #2BBBAD; */
+  background-color: #2BBBAD;
   background-color: #c0ded9;
   background-image: url("https://images.vexels.com/media/users/3/125411/preview2/8e2fb93595079d63276a2c64f73e4804-clear-geometric-shapes-abstract-background.jpg");
 }
-
-.navbar .navbar-brand {
-  color: #2E2E2E;
-}
-
- /* .navbar .nav-link {
-  color:white;
-} */
 
 .anchor-padding {
   padding-top: 50px;
@@ -25,13 +16,16 @@ body {
 }
 
 .freddy {
-  background-image: url("http://www.imperialenterpriselab.com/wp-content/uploads/2017/02/software.jpg");
-  background-size: 100% auto;
+  background-color: black;
+  /* background-image: url("http://www.imperialenterpriselab.com/wp-content/uploads/2017/02/software.jpg"); */
+  background-image: url("http://ak0.picdn.net/shutterstock/videos/13042880/thumb/1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .button-format {
-  padding-top: 250px;
-  padding-bottom: 260px;
+  padding-top: 200px;
+  padding-bottom: 100px;
 }
 
 .button-style {
