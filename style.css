@@ -24,7 +24,7 @@ body {
 }
 
 .button-format {
-  padding-top: 200px;
+  padding-top: 100px;
   padding-bottom: 100px;
 }
 
@@ -36,6 +36,23 @@ body {
   border-width: 3px;
   border-radius: 5px;
   margin: 0 20px;
+}
+
+div.transbox {
+    margin-top: 65px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+    border-radius: 30px;
+}
+
+div.transbox p {
+    margin: 1%;
+    font-weight: bold;
+    font-family: 'Play', sans-serif;
+    color: slate;
+    text-align: center;
+    font-size: 45px;
 }
 
 .bio-config {
