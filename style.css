@@ -94,16 +94,15 @@ div.transbox p {
   color: black;
 }
 
-
 .card-block a {
   color:  #4040a1;
   font-family: 'Quattrocento', serif;
 }
 
-
 #cloud {
   border-radius: 20px;
   height: 200px;
+  width: 100%;
 }
 
 #buttons {
