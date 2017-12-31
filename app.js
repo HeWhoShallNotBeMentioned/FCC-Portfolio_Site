@@ -1,4 +1,4 @@
-console.log("I can see the js file");
+// console.log("I can see the js file");
 //Interactive Buttons
 (function(){
 
@@ -32,8 +32,16 @@ console.log("I can see the js file");
               }
           }
               arr.sort(function(a, b) {
-                return a["key"].toUpperCase() > b["key"].toUpperCase();
+                // console.log("a key ", a["key"].toUpperCase()," b key ", b["key"].toUpperCase());
+                if (a["key"].toUpperCase() < b["key"].toUpperCase())
+                  return -1;
+                if (a["key"].toUpperCase() > b["key"].toUpperCase())
+                  return 1;
+                else
+                  return 0;
+
               });
+              console.table(arr);
               return arr;
           }
 
@@ -70,7 +78,7 @@ console.log("I can see the js file");
             return [x, y];
           });
 
-          console.log("list ", list);
+          // console.log("list ", list);
           WordCloud(document.getElementById("cloud"), {list: list, color: "random-light", backgroundColor: "black", gridSize: 30, weightFactor: 8, fontFamily: 'Nova Slim'});
 
         }());
