@@ -73,10 +73,13 @@ div.transbox p {
 }
 
 #portfolio {
-  font-size: 120px;
-  /* color: #ff6f69; */
   color: #d9ad7c;
+  text-align: center;
   font-family: 'Cinzel Decorative', cursive;
+}
+
+#portfolio p {
+  font-size: 7em;
 }
 
 .img-head{
@@ -106,6 +109,7 @@ div.transbox p {
 }
 
 #cloud {
+  display: block;
   border-radius: 20px;
   height: 200px;
   width: 100%;
@@ -139,4 +143,14 @@ div.transbox p {
 
 .card-img-top:hover  {
   transform: scale(1.2);
+}
+
+@media screen and (max-width: 768px) {
+  #portfolio p {
+    font-size: 3em;
+  }
+
+  #cloud {
+    display: none;
+  }
 }
