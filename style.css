@@ -121,6 +121,10 @@ div.transbox p {
   transition: .4s ease-out;
 }
 
+.blank-link {
+    display: none;
+}
+
 .card-block a:hover {
   border-color: silver;
   color: silver;
