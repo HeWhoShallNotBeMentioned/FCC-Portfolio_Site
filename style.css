@@ -1,6 +1,7 @@
 body {
-  background-color: #4285F4;
-  background-image: url("./images/body-background.png");
+  /* background-color: #4285F4; */
+  /* background-image: url("./images/body-background.png"); */
+  background-color: #000;
   background-size: 100% auto;
 }
 
@@ -36,6 +37,11 @@ body {
   border-width: 3px;
   border-radius: 5px;
   margin: 0 20px;
+}
+
+.button-style:hover {
+  color: silver;
+  border-color: silver;
 }
 
 div.transbox {
@@ -85,7 +91,7 @@ div.transbox p {
 }
 
 .card {
-  border-color: white;
+  border: 1px solid black;
   margin-bottom: 20px;
   display: inline-block;
   overflow: hidden
@@ -96,14 +102,26 @@ div.transbox p {
 
 .card-block {
   font-family: 'Open Sans', sans-serif;
-  background-color: #c5d5c5;
-  color: black;
+  /* background-color: #c5d5c5; */
+  background-color: #4169E1;
+  color: white;
   cursor: default;
 }
 
 .card-block a {
-  color:  #4040a1;
+  color:  #b3c3f3;
   font-family: 'Quattrocento', serif;
+  border-style: double;
+  border-color: white;
+  border-width: 3px;
+  border-radius: 2px;
+  padding: 5px;
+  color: white;
+}
+
+.card-block a:hover {
+  border-color: silver;
+  color: silver;
 }
 
 #cloud {
@@ -121,24 +139,26 @@ div.transbox p {
 
 #buttons button {
   color: white;
-  background-color: black;
-  border: white 2px solid;
+  background-color:transparent !important;
+  /* background-color: black; */
+  border: white solid;
+  border-style: double;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 2px;
   margin-left: 5px;
   margin-bottom: 5px;
   font-family: 'Quattrocento', serif;
 }
 
 #buttons button.myHover:hover {
-  background-color: white;
-  color: black;
-  border: #c5d5c5 2px solid;
-  border-radius: 10px
+  color: silver;
+  border: silver double;
+  border-radius: 2px;
 }
 
 .card-img-top  {
   transition: transform .7s ease-out;
+  display: none;
 }
 
 .card-img-top:hover  {
