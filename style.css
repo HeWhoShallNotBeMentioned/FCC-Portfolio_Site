@@ -31,12 +31,13 @@ body {
 .button-style {
   color: white;
   font-family: 'Quattrocento', serif;
-  background-color:transparent !important;
+  background-color: transparent !important;
   border-style: double;
   border-color: white;
   border-width: 3px;
   border-radius: 5px;
   margin: 0 20px;
+  transition: .4s ease-out;
 }
 
 .button-style:hover {
@@ -117,6 +118,7 @@ div.transbox p {
   border-radius: 2px;
   padding: 5px;
   color: white;
+  transition: .4s ease-out;
 }
 
 .card-block a:hover {
@@ -148,6 +150,7 @@ div.transbox p {
   margin-left: 5px;
   margin-bottom: 5px;
   font-family: 'Quattrocento', serif;
+  transition: .4s ease-out;
 }
 
 #buttons button.myHover:hover {
