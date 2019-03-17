@@ -163,6 +163,12 @@ div.transbox p {
   border-radius: 2px;
 }
 
+#buttons #lineText {
+  text-align: left;
+  color: white;
+  font-family: 'Quattrocento', serif;
+}
+
 .card-img-top  {
   transition: transform .7s ease-out;
   display: none;
