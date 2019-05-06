@@ -178,6 +178,17 @@ div.transbox p {
   transform: scale(1.2);
 }
 
+.textHover {
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all ease-in .5s;
+}
+
+.textHover:hover {
+  border-color: silver;
+  border-radius: 10px;
+}
+
 .footer {
   color: white;
   text-align: center;

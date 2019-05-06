@@ -797,18 +797,18 @@ if (!window.clearImmediate) {
         } else {
           // drawText on DIV element
           var span = document.createElement('span');
-
+          span.classList.add('textHover');
           let buttonsToClick = document.getElementsByClassName('myHover');
 
           span.onclick = function() {
             let buttonText = span.innerText;
-            console.log('buttonText=====', buttonText);
-            console.log('buttonsToClick---------------- ', buttonsToClick);
+            //console.log('buttonText=====', buttonText);
+            //console.log('buttonsToClick---------------- ', buttonsToClick);
             let buttonsToClickArray = Array.from(buttonsToClick);
-            console.log('buttonsToClickArray---------------- ', buttonsToClick);
+            //console.log('buttonsToClickArray---------------- ', buttonsToClick);
             let buttonCli = buttonsToClickArray.filter(button =>
               button.innerText.startsWith(buttonText));
-            console.log('buttonCli +++++++', buttonCli);
+            //console.log('buttonCli +++++++', buttonCli);
             buttonCli[0].click();
           };
           var transformRule = '';
