@@ -1,84 +1,85 @@
 // console.log("I can see the js file");
 //Interactive Buttons
-(function(){
+(function() {
+  let $projects = $('.projects');
+  let $buttons = $('#buttons');
+  let tagged = {};
 
-          let $projects = $('.projects');
-          let $buttons = $('#buttons');
-          let tagged = {};
+  $projects.each(function() {
+    let project = this;
+    let projectTags = $(this).data('tags');
+    // console.log("projectTags", projectTags);
+    if (projectTags) {
+      projectTags.split(',').forEach(function(tagName) {
+        if (tagged[tagName] == null) {
+          tagged[tagName] = [];
+        }
+        tagged[tagName].push(project);
+      });
+    }
+  });
 
-          $projects.each(function(){
-            let project = this;
-            let projectTags = $(this).data('tags');
-              // console.log("projectTags", projectTags);
-            if (projectTags) {
-              projectTags.split(',').forEach(function(tagName){
-                if(tagged[tagName] == null) {
-                  tagged[tagName] = [];
-                }
-                tagged[tagName].push(project);
-              });
-            }
-          });
+  function sortObject(obj) {
+    var arr = [];
+    var prop;
+    for (prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        arr.push({
+          key: prop,
+          value: obj[prop],
+        });
+      }
+    }
+    arr.sort(function(a, b) {
+      // console.log("a key ", a["key"].toUpperCase()," b key ", b["key"].toUpperCase());
+      if (a.key.toUpperCase() < b.key.toUpperCase()) return -1;
+      if (a.key.toUpperCase() > b.key.toUpperCase()) return 1;
+      else return 0;
+    });
+    console.table(arr);
+    return arr;
+  }
 
-          function sortObject(obj) {
-            var arr = [];
-            var prop;
-            for (prop in obj) {
-              if (obj.hasOwnProperty(prop)) {
-                arr.push({
-                  'key': prop,
-                  'value': obj[prop]
-                });
-              }
-          }
-              arr.sort(function(a, b) {
-                // console.log("a key ", a["key"].toUpperCase()," b key ", b["key"].toUpperCase());
-                if (a["key"].toUpperCase() < b["key"].toUpperCase())
-                  return -1;
-                if (a["key"].toUpperCase() > b["key"].toUpperCase())
-                  return 1;
-                else
-                  return 0;
+  let sorted = sortObject(tagged);
 
-              });
-              console.table(arr);
-              return arr;
-          }
+  $.each(sorted, function(val, val2) {
+    let key = Object.values(val).join('');
+    let num = Object.keys(val2).length;
+    $('<button/>', {
+      text: val2.key + ' (' + val2.value.length + ')',
+      class: 'myHover',
+      click: function() {
+        $(this)
+          .addClass('active')
+          .siblings()
+          .removeClass('active');
+        $projects
+          .hide()
+          .filter(val2.value)
+          .show();
+      },
+    }).appendTo($buttons);
+  });
 
-          let sorted = sortObject(tagged);
+  //Word Box
+  let tagged2 = Object.entries(tagged);
 
-          $.each(sorted, function(val, val2) {
-            let key = Object.values(val).join("");
-            let num = Object.keys(val2).length;
-             $('<button/>', {
-              text: val2.key + ' (' + val2.value.length + ')',
-              class: "myHover",
-              click: function () {
-                $(this)
-                  .addClass('active')
-                  .siblings()
-                  .removeClass('active');
-                $projects
-                  .hide()
-                  .filter(val2.value)
-                  .show();
-              }
-            }).appendTo($buttons);
-          });
+  let list = tagged2.map(function(word) {
+    let x = word[0];
+    let y = word[1].length;
+    if (x == 'All') {
+      return ['All', 6];
+    }
+    return [x, y];
+  });
 
-          //Word Box
-           let tagged2 = Object.entries(tagged);
-
-          let list = tagged2.map(function(word) {
-              let x = word[0];
-              let y = word[1].length;
-              if (x == "All") {
-               return ["",0];
-              }
-            return [x, y];
-          });
-
-          // console.log("list ", list);
-          WordCloud(document.getElementById("cloud"), {list: list, color: "random-light", backgroundColor: "black", gridSize: 30, weightFactor: 8, fontFamily: 'Nova Slim'});
-
-        }());
+  // console.log("list ", list);
+  WordCloud(document.getElementById('cloud'), {
+    list: list,
+    color: 'random-light',
+    backgroundColor: 'black',
+    gridSize: 30,
+    weightFactor: 8,
+    fontFamily: 'Nova Slim',
+  });
+})();

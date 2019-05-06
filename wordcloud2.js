@@ -11,83 +11,93 @@
 // setImmediate
 if (!window.setImmediate) {
   window.setImmediate = (function setupSetImmediate() {
-    return window.msSetImmediate ||
-    window.webkitSetImmediate ||
-    window.mozSetImmediate ||
-    window.oSetImmediate ||
-    (function setupSetZeroTimeout() {
-      if (!window.postMessage || !window.addEventListener) {
-        return null;
+    return (
+      window.msSetImmediate ||
+      window.webkitSetImmediate ||
+      window.mozSetImmediate ||
+      window.oSetImmediate ||
+      (function setupSetZeroTimeout() {
+        if (!window.postMessage || !window.addEventListener) {
+          return null;
+        }
+
+        var callbacks = [undefined];
+        var message = 'zero-timeout-message';
+
+        // Like setTimeout, but only takes a function argument.  There's
+        // no time argument (always zero) and no arguments (you have to
+        // use a closure).
+        var setZeroTimeout = function setZeroTimeout(callback) {
+          var id = callbacks.length;
+          callbacks.push(callback);
+          window.postMessage(message + id.toString(36), '*');
+
+          return id;
+        };
+
+        window.addEventListener(
+          'message',
+          function setZeroTimeoutMessage(evt) {
+            // Skipping checking event source, retarded IE confused this window
+            // object with another in the presence of iframe
+            if (
+              typeof evt.data !== 'string' ||
+              evt.data.substr(0, message.length) !==
+                message /* ||
+            evt.source !== window */
+            ) {
+              return;
+            }
+
+            evt.stopImmediatePropagation();
+
+            var id = parseInt(evt.data.substr(message.length), 36);
+            if (!callbacks[id]) {
+              return;
+            }
+
+            callbacks[id]();
+            callbacks[id] = undefined;
+          },
+          true
+        );
+
+        /* specify clearImmediate() here since we need the scope */
+        window.clearImmediate = function clearZeroTimeout(id) {
+          if (!callbacks[id]) {
+            return;
+          }
+
+          callbacks[id] = undefined;
+        };
+
+        return setZeroTimeout;
+      })() ||
+      // fallback
+      function setImmediateFallback(fn) {
+        window.setTimeout(fn, 0);
       }
-
-      var callbacks = [undefined];
-      var message = 'zero-timeout-message';
-
-      // Like setTimeout, but only takes a function argument.  There's
-      // no time argument (always zero) and no arguments (you have to
-      // use a closure).
-      var setZeroTimeout = function setZeroTimeout(callback) {
-        var id = callbacks.length;
-        callbacks.push(callback);
-        window.postMessage(message + id.toString(36), '*');
-
-        return id;
-      };
-
-      window.addEventListener('message', function setZeroTimeoutMessage(evt) {
-        // Skipping checking event source, retarded IE confused this window
-        // object with another in the presence of iframe
-        if (typeof evt.data !== 'string' ||
-            evt.data.substr(0, message.length) !== message/* ||
-            evt.source !== window */) {
-          return;
-        }
-
-        evt.stopImmediatePropagation();
-
-        var id = parseInt(evt.data.substr(message.length), 36);
-        if (!callbacks[id]) {
-          return;
-        }
-
-        callbacks[id]();
-        callbacks[id] = undefined;
-      }, true);
-
-      /* specify clearImmediate() here since we need the scope */
-      window.clearImmediate = function clearZeroTimeout(id) {
-        if (!callbacks[id]) {
-          return;
-        }
-
-        callbacks[id] = undefined;
-      };
-
-      return setZeroTimeout;
-    })() ||
-    // fallback
-    function setImmediateFallback(fn) {
-      window.setTimeout(fn, 0);
-    };
+    );
   })();
 }
 
 if (!window.clearImmediate) {
   window.clearImmediate = (function setupClearImmediate() {
-    return window.msClearImmediate ||
-    window.webkitClearImmediate ||
-    window.mozClearImmediate ||
-    window.oClearImmediate ||
-    // "clearZeroTimeout" is implement on the previous block ||
-    // fallback
-    function clearImmediateFallback(timer) {
-      window.clearTimeout(timer);
-    };
+    return (
+      window.msClearImmediate ||
+      window.webkitClearImmediate ||
+      window.mozClearImmediate ||
+      window.oClearImmediate ||
+      // "clearZeroTimeout" is implement on the previous block ||
+      // fallback
+      function clearImmediateFallback(timer) {
+        window.clearTimeout(timer);
+      }
+    );
   })();
 }
 
 (function(global) {
-
   // Check if WordCloud can run on this browser
   var isSupported = (function isSupported() {
     var canvas = document.createElement('canvas');
@@ -111,7 +121,7 @@ if (!window.clearImmediate) {
     }
 
     return true;
-  }());
+  })();
 
   // Find out if the browser impose minium font size by
   // drawing small texts on a canvas and measure it's width.
@@ -130,9 +140,11 @@ if (!window.clearImmediate) {
 
     while (size) {
       ctx.font = size.toString(10) + 'px sans-serif';
-      if ((ctx.measureText('\uFF37').width === hanWidth) &&
-          (ctx.measureText('m').width) === mWidth) {
-        return (size + 1);
+      if (
+        ctx.measureText('\uFF37').width === hanWidth &&
+        ctx.measureText('m').width === mWidth
+      ) {
+        return size + 1;
       }
 
       hanWidth = ctx.measureText('\uFF37').width;
@@ -146,10 +158,14 @@ if (!window.clearImmediate) {
 
   // Based on http://jsfromhell.com/array/shuffle
   var shuffleArray = function shuffleArray(arr) {
-    for (var j, x, i = arr.length; i;
+    for (
+      var j, x, i = arr.length;
+      i;
       j = Math.floor(Math.random() * i),
-      x = arr[--i], arr[i] = arr[j],
-      arr[j] = x) {}
+        x = arr[--i],
+        arr[i] = arr[j],
+        arr[j] = x
+    ) {}
     return arr;
   };
 
@@ -176,14 +192,15 @@ if (!window.clearImmediate) {
     /* Default values to be overwritten by options object */
     var settings = {
       list: [],
-      fontFamily: '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' +
-                  '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
+      fontFamily:
+        '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' +
+        '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
       fontWeight: 'normal',
       color: 'random-dark',
       minSize: 0, // 0 to disable
       weightFactor: 1,
       clearCanvas: true,
-      backgroundColor: '#fff',  // opaque white = rgba(255, 255, 255, 1)
+      backgroundColor: '#fff', // opaque white = rgba(255, 255, 255, 1)
 
       gridSize: 8,
       origin: null,
@@ -196,7 +213,7 @@ if (!window.clearImmediate) {
       abortThreshold: 0, // disabled
       abort: function noop() {},
 
-      minRotation: - Math.PI / 2,
+      minRotation: -Math.PI / 2,
       maxRotation: Math.PI / 2,
 
       shuffle: true,
@@ -206,7 +223,7 @@ if (!window.clearImmediate) {
       ellipticity: 0.65,
 
       hover: null,
-      click: null
+      click: null,
     };
 
     if (options) {
@@ -256,7 +273,7 @@ if (!window.clearImmediate) {
           // %28t%2C+PI%2F2%29%29%2Bsin%28mod+%28t%2C+PI%2F2%29%29%29%2C+t+%3D
           // +0+..+2*PI
           settings.shape = function shapeSquare(theta) {
-            var thetaPrime = theta % (2 * Math.PI / 4);
+            var thetaPrime = theta % ((2 * Math.PI) / 4);
             return 1 / (Math.cos(thetaPrime) + Math.sin(thetaPrime));
           };
           break;
@@ -266,38 +283,46 @@ if (!window.clearImmediate) {
           // %28t%2C+2*PI%2F3%29%29%2Bsqrt%283%29sin%28mod+%28t%2C+2*PI%2F3%29
           // %29%29%2C+t+%3D+0+..+2*PI
           settings.shape = function shapeTriangle(theta) {
-            var thetaPrime = theta % (2 * Math.PI / 3);
-            return 1 / (Math.cos(thetaPrime) +
-                        Math.sqrt(3) * Math.sin(thetaPrime));
+            var thetaPrime = theta % ((2 * Math.PI) / 3);
+            return (
+              1 / (Math.cos(thetaPrime) + Math.sqrt(3) * Math.sin(thetaPrime))
+            );
           };
           break;
 
         case 'triangle':
         case 'triangle-upright':
           settings.shape = function shapeTriangle(theta) {
-            var thetaPrime = (theta + Math.PI * 3 / 2) % (2 * Math.PI / 3);
-            return 1 / (Math.cos(thetaPrime) +
-                        Math.sqrt(3) * Math.sin(thetaPrime));
+            var thetaPrime = (theta + (Math.PI * 3) / 2) % ((2 * Math.PI) / 3);
+            return (
+              1 / (Math.cos(thetaPrime) + Math.sqrt(3) * Math.sin(thetaPrime))
+            );
           };
           break;
 
         case 'pentagon':
           settings.shape = function shapePentagon(theta) {
-            var thetaPrime = (theta + 0.955) % (2 * Math.PI / 5);
-            return 1 / (Math.cos(thetaPrime) +
-                        0.726543 * Math.sin(thetaPrime));
+            var thetaPrime = (theta + 0.955) % ((2 * Math.PI) / 5);
+            return 1 / (Math.cos(thetaPrime) + 0.726543 * Math.sin(thetaPrime));
           };
           break;
 
         case 'star':
           settings.shape = function shapeStar(theta) {
-            var thetaPrime = (theta + 0.955) % (2 * Math.PI / 10);
-            if ((theta + 0.955) % (2 * Math.PI / 5) - (2 * Math.PI / 10) >= 0) {
-              return 1 / (Math.cos((2 * Math.PI / 10) - thetaPrime) +
-                          3.07768 * Math.sin((2 * Math.PI / 10) - thetaPrime));
+            var thetaPrime = (theta + 0.955) % ((2 * Math.PI) / 10);
+            if (
+              ((theta + 0.955) % ((2 * Math.PI) / 5)) - (2 * Math.PI) / 10 >=
+              0
+            ) {
+              return (
+                1 /
+                (Math.cos((2 * Math.PI) / 10 - thetaPrime) +
+                  3.07768 * Math.sin((2 * Math.PI) / 10 - thetaPrime))
+              );
             } else {
-              return 1 / (Math.cos(thetaPrime) +
-                          3.07768 * Math.sin(thetaPrime));
+              return (
+                1 / (Math.cos(thetaPrime) + 3.07768 * Math.sin(thetaPrime))
+              );
             }
           };
           break;
@@ -317,7 +342,8 @@ if (!window.clearImmediate) {
 
     /* information/object available to all functions, set when start() */
     var grid, // 2d array containing filling information
-      ngx, ngy, // width and height of the grid
+      ngx,
+      ngy, // width and height of the grid
       center, // position of the center of the cloud
       maxRadius;
 
@@ -329,19 +355,29 @@ if (!window.clearImmediate) {
     switch (settings.color) {
       case 'random-dark':
         getTextColor = function getRandomDarkColor() {
-          return 'rgb(' +
-            Math.floor(Math.random() * 128).toString(10) + ',' +
-            Math.floor(Math.random() * 128).toString(10) + ',' +
-            Math.floor(Math.random() * 128).toString(10) + ')';
+          return (
+            'rgb(' +
+            Math.floor(Math.random() * 128).toString(10) +
+            ',' +
+            Math.floor(Math.random() * 128).toString(10) +
+            ',' +
+            Math.floor(Math.random() * 128).toString(10) +
+            ')'
+          );
         };
         break;
 
       case 'random-light':
         getTextColor = function getRandomLightColor() {
-          return 'rgb(' +
-            Math.floor(Math.random() * 128 + 128).toString(10) + ',' +
-            Math.floor(Math.random() * 128 + 128).toString(10) + ',' +
-            Math.floor(Math.random() * 128 + 128).toString(10) + ')';
+          return (
+            'rgb(' +
+            Math.floor(Math.random() * 128 + 128).toString(10) +
+            ',' +
+            Math.floor(Math.random() * 128 + 128).toString(10) +
+            ',' +
+            Math.floor(Math.random() * 128 + 128).toString(10) +
+            ')'
+          );
         };
         break;
 
@@ -363,8 +399,8 @@ if (!window.clearImmediate) {
       var eventX = evt.clientX - rect.left;
       var eventY = evt.clientY - rect.top;
 
-      var x = Math.floor(eventX * ((canvas.width / rect.width) || 1) / g);
-      var y = Math.floor(eventY * ((canvas.height / rect.height) || 1) / g);
+      var x = Math.floor((eventX * (canvas.width / rect.width || 1)) / g);
+      var y = Math.floor((eventY * (canvas.height / rect.height || 1)) / g);
 
       return infoGrid[x][y];
     };
@@ -384,7 +420,6 @@ if (!window.clearImmediate) {
       }
 
       settings.hover(info.item, info.dimension, evt);
-
     };
 
     var wordcloudclick = function wordcloudclick(evt) {
@@ -418,15 +453,19 @@ if (!window.clearImmediate) {
         // distort the radius to put the cloud in shape
         var rx = 1;
         if (settings.shape !== 'circle') {
-          rx = settings.shape(t / T * 2 * Math.PI); // 0 to 1
+          rx = settings.shape((t / T) * 2 * Math.PI); // 0 to 1
         }
 
         // Push [x, y, t]; t is used solely for getTextColor()
         points.push([
-          center[0] + radius * rx * Math.cos(-t / T * 2 * Math.PI),
-          center[1] + radius * rx * Math.sin(-t / T * 2 * Math.PI) *
-            settings.ellipticity,
-          t / T * 2 * Math.PI]);
+          center[0] + radius * rx * Math.cos((-t / T) * 2 * Math.PI),
+          center[1] +
+            radius *
+              rx *
+              Math.sin((-t / T) * 2 * Math.PI) *
+              settings.ellipticity,
+          (t / T) * 2 * Math.PI,
+        ]);
       }
 
       pointsAtRadius[radius] = points;
@@ -435,8 +474,10 @@ if (!window.clearImmediate) {
 
     /* Return true if we had spent too much time */
     var exceedTime = function exceedTime() {
-      return ((settings.abortThreshold > 0) &&
-        ((new Date()).getTime() - escapeTime > settings.abortThreshold));
+      return (
+        settings.abortThreshold > 0 &&
+        new Date().getTime() - escapeTime > settings.abortThreshold
+      );
     };
 
     /* Get the deg of rotation according to settings, and luck. */
@@ -483,14 +524,21 @@ if (!window.clearImmediate) {
       var fcanvas = document.createElement('canvas');
       var fctx = fcanvas.getContext('2d', { willReadFrequently: true });
 
-      fctx.font = settings.fontWeight + ' ' +
-        (fontSize * mu).toString(10) + 'px ' + settings.fontFamily;
+      fctx.font =
+        settings.fontWeight +
+        ' ' +
+        (fontSize * mu).toString(10) +
+        'px ' +
+        settings.fontFamily;
 
       // Estimate the dimension of the text with measureText().
       var fw = fctx.measureText(word).width / mu;
-      var fh = Math.max(fontSize * mu,
-                        fctx.measureText('m').width,
-                        fctx.measureText('\uFF37').width) / mu;
+      var fh =
+        Math.max(
+          fontSize * mu,
+          fctx.measureText('m').width,
+          fctx.measureText('\uFF37').width
+        ) / mu;
 
       // Create a boundary box that is larger than our estimates,
       // so text don't get cut of (it sill might)
@@ -505,17 +553,23 @@ if (!window.clearImmediate) {
       // the preferred position.
 
       // This is simply half of the width.
-      var fillTextOffsetX = - fw / 2;
+      var fillTextOffsetX = -fw / 2;
       // Instead of moving the box to the exact middle of the preferred
       // position, for Y-offset we move 0.4 instead, so Latin alphabets look
       // vertical centered.
-      var fillTextOffsetY = - fh * 0.4;
+      var fillTextOffsetY = -fh * 0.4;
 
       // Calculate the actual dimension of the canvas, considering the rotation.
-      var cgh = Math.ceil((boxWidth * Math.abs(Math.sin(rotateDeg)) +
-                           boxHeight * Math.abs(Math.cos(rotateDeg))) / g);
-      var cgw = Math.ceil((boxWidth * Math.abs(Math.cos(rotateDeg)) +
-                           boxHeight * Math.abs(Math.sin(rotateDeg))) / g);
+      var cgh = Math.ceil(
+        (boxWidth * Math.abs(Math.sin(rotateDeg)) +
+          boxHeight * Math.abs(Math.cos(rotateDeg))) /
+          g
+      );
+      var cgw = Math.ceil(
+        (boxWidth * Math.abs(Math.cos(rotateDeg)) +
+          boxHeight * Math.abs(Math.sin(rotateDeg))) /
+          g
+      );
       var width = cgw * g;
       var height = cgh * g;
 
@@ -531,13 +585,17 @@ if (!window.clearImmediate) {
 
       // Scale the canvas with |mu|.
       fctx.scale(1 / mu, 1 / mu);
-      fctx.translate(width * mu / 2, height * mu / 2);
-      fctx.rotate(- rotateDeg);
+      fctx.translate((width * mu) / 2, (height * mu) / 2);
+      fctx.rotate(-rotateDeg);
 
       // Once the width/height is set, ctx info will be reset.
       // Set it again here.
-      fctx.font = settings.fontWeight + ' ' +
-        (fontSize * mu).toString(10) + 'px ' + settings.fontFamily;
+      fctx.font =
+        settings.fontWeight +
+        ' ' +
+        (fontSize * mu).toString(10) +
+        'px ' +
+        settings.fontFamily;
 
       // Fill the text into the fcanvas.
       // XXX: We cannot because textBaseline = 'top' here because
@@ -547,8 +605,11 @@ if (!window.clearImmediate) {
       // 0.5 * fontSize lower.
       fctx.fillStyle = '#000';
       fctx.textBaseline = 'middle';
-      fctx.fillText(word, fillTextOffsetX * mu,
-                    (fillTextOffsetY + fontSize * 0.5) * mu);
+      fctx.fillText(
+        word,
+        fillTextOffsetX * mu,
+        (fillTextOffsetY + fontSize * 0.5) * mu
+      );
 
       // Get the pixels of the text
       var imageData = fctx.getImageData(0, 0, width, height).data;
@@ -559,14 +620,21 @@ if (!window.clearImmediate) {
 
       if (debug) {
         // Draw the box of the original estimation
-        fctx.strokeRect(fillTextOffsetX * mu,
-                        fillTextOffsetY, fw * mu, fh * mu);
+        fctx.strokeRect(
+          fillTextOffsetX * mu,
+          fillTextOffsetY,
+          fw * mu,
+          fh * mu
+        );
         fctx.restore();
       }
 
       // Read the pixels and save the information to the occupied array
       var occupied = [];
-      var gx = cgw, gy, x, y;
+      var gx = cgw,
+        gy,
+        x,
+        y;
       var bounds = [cgh / 2, cgw / 2, cgh / 2, cgw / 2];
       while (gx--) {
         gy = cgh;
@@ -576,8 +644,7 @@ if (!window.clearImmediate) {
             while (y--) {
               x = g;
               while (x--) {
-                if (imageData[((gy * g + y) * width +
-                               (gx * g + x)) * 4 + 3]) {
+                if (imageData[((gy * g + y) * width + (gx * g + x)) * 4 + 3]) {
                   occupied.push([gx, gy]);
 
                   if (gx < bounds[3]) {
@@ -611,10 +678,12 @@ if (!window.clearImmediate) {
 
       if (debug) {
         fctx.fillStyle = 'rgba(0, 255, 0, 0.5)';
-        fctx.fillRect(bounds[3] * g,
-                      bounds[0] * g,
-                      (bounds[1] - bounds[3] + 1) * g,
-                      (bounds[2] - bounds[0] + 1) * g);
+        fctx.fillRect(
+          bounds[3] * g,
+          bounds[0] * g,
+          (bounds[1] - bounds[3] + 1) * g,
+          (bounds[2] - bounds[0] + 1) * g
+        );
       }
 
       // Return information needed to create the text on the real canvas
@@ -628,7 +697,7 @@ if (!window.clearImmediate) {
         fillTextOffsetY: fillTextOffsetY,
         fillTextWidth: fw,
         fillTextHeight: fh,
-        fontSize: fontSize
+        fontSize: fontSize,
       };
     };
 
@@ -649,9 +718,17 @@ if (!window.clearImmediate) {
     };
 
     /* Actually draw the text on the grid */
-    var drawText = function drawText(gx, gy, info, word, weight,
-                                     distance, theta, rotateDeg, attributes) {
-
+    var drawText = function drawText(
+      gx,
+      gy,
+      info,
+      word,
+      weight,
+      distance,
+      theta,
+      rotateDeg,
+      attributes
+    ) {
       var fontSize = info.fontSize;
       var color;
       if (getTextColor) {
@@ -666,7 +743,7 @@ if (!window.clearImmediate) {
         x: (gx + bounds[3]) * g,
         y: (gy + bounds[0]) * g,
         w: (bounds[1] - bounds[3] + 1) * g,
-        h: (bounds[2] - bounds[0] + 1) * g
+        h: (bounds[2] - bounds[0] + 1) * g,
       };
 
       elements.forEach(function(el) {
@@ -678,17 +755,23 @@ if (!window.clearImmediate) {
           ctx.save();
           ctx.scale(1 / mu, 1 / mu);
 
-          ctx.font = settings.fontWeight + ' ' +
-                     (fontSize * mu).toString(10) + 'px ' + settings.fontFamily;
+          ctx.font =
+            settings.fontWeight +
+            ' ' +
+            (fontSize * mu).toString(10) +
+            'px ' +
+            settings.fontFamily;
           ctx.fillStyle = color;
 
           // Translate the canvas position to the origin coordinate of where
           // the text should be put.
-          ctx.translate((gx + info.gw / 2) * g * mu,
-                        (gy + info.gh / 2) * g * mu);
+          ctx.translate(
+            (gx + info.gw / 2) * g * mu,
+            (gy + info.gh / 2) * g * mu
+          );
 
           if (rotateDeg !== 0) {
-            ctx.rotate(- rotateDeg);
+            ctx.rotate(-rotateDeg);
           }
 
           // Finally, fill the text.
@@ -699,8 +782,11 @@ if (!window.clearImmediate) {
           // Here, we use textBaseline = 'middle' and draw the text at exactly
           // 0.5 * fontSize lower.
           ctx.textBaseline = 'middle';
-          ctx.fillText(word, info.fillTextOffsetX * mu,
-                             (info.fillTextOffsetY + fontSize * 0.5) * mu);
+          ctx.fillText(
+            word,
+            info.fillTextOffsetX * mu,
+            (info.fillTextOffsetY + fontSize * 0.5) * mu
+          );
 
           // The below box is always matches how <span>s are positioned
           /* ctx.strokeRect(info.fillTextOffsetX, info.fillTextOffsetY,
@@ -711,31 +797,53 @@ if (!window.clearImmediate) {
         } else {
           // drawText on DIV element
           var span = document.createElement('span');
+
+          let buttonsToClick = document.getElementsByClassName('myHover');
+
+          span.onclick = function() {
+            let buttonText = span.innerText;
+            console.log('buttonText=====', buttonText);
+            console.log('buttonsToClick---------------- ', buttonsToClick);
+            let buttonsToClickArray = Array.from(buttonsToClick);
+            console.log('buttonsToClickArray---------------- ', buttonsToClick);
+            let buttonCli = buttonsToClickArray.filter(button =>
+              button.innerText.startsWith(buttonText));
+            console.log('buttonCli +++++++', buttonCli);
+            buttonCli[0].click();
+          };
           var transformRule = '';
-          transformRule = 'rotate(' + (- rotateDeg / Math.PI * 180) + 'deg) ';
+          transformRule = 'rotate(' + (-rotateDeg / Math.PI) * 180 + 'deg) ';
           if (info.mu !== 1) {
             transformRule +=
-              'translateX(-' + (info.fillTextWidth / 4) + 'px) ' +
-              'scale(' + (1 / info.mu) + ')';
+              'translateX(-' +
+              info.fillTextWidth / 4 +
+              'px) ' +
+              'scale(' +
+              1 / info.mu +
+              ')';
           }
           var styleRules = {
-            'position': 'absolute',
-            'display': 'block',
-            'font': settings.fontWeight + ' ' +
-                    (fontSize * info.mu) + 'px ' + settings.fontFamily,
-            'left': ((gx + info.gw / 2) * g + info.fillTextOffsetX) + 'px',
-            'top': ((gy + info.gh / 2) * g + info.fillTextOffsetY) + 'px',
-            'width': info.fillTextWidth + 'px',
-            'height': info.fillTextHeight + 'px',
-            'color': color,
-            'lineHeight': fontSize + 'px',
-            'whiteSpace': 'nowrap',
-            'transform': transformRule,
-            'webkitTransform': transformRule,
-            'msTransform': transformRule,
-            'transformOrigin': '50% 40%',
-            'webkitTransformOrigin': '50% 40%',
-            'msTransformOrigin': '50% 40%'
+            position: 'absolute',
+            display: 'block',
+            font:
+              settings.fontWeight +
+              ' ' +
+              fontSize * info.mu +
+              'px ' +
+              settings.fontFamily,
+            left: (gx + info.gw / 2) * g + info.fillTextOffsetX + 'px',
+            top: (gy + info.gh / 2) * g + info.fillTextOffsetY + 'px',
+            width: info.fillTextWidth + 'px',
+            height: info.fillTextHeight + 'px',
+            color: color,
+            lineHeight: fontSize + 'px',
+            whiteSpace: 'nowrap',
+            transform: transformRule,
+            webkitTransform: transformRule,
+            msTransform: transformRule,
+            transformOrigin: '50% 40%',
+            webkitTransformOrigin: '50% 40%',
+            msTransformOrigin: '50% 40%',
           };
           span.textContent = word;
           for (var cssProp in styleRules) {
@@ -788,14 +896,19 @@ if (!window.clearImmediate) {
           x: (gx + bounds[3]) * g,
           y: (gy + bounds[0]) * g,
           w: (bounds[1] - bounds[3] + 1) * g,
-          h: (bounds[2] - bounds[0] + 1) * g
+          h: (bounds[2] - bounds[0] + 1) * g,
         };
       }
 
       var i = occupied.length;
       while (i--) {
-        fillGridAt(gx + occupied[i][0], gy + occupied[i][1],
-                   drawMask, dimension, item);
+        fillGridAt(
+          gx + occupied[i][0],
+          gy + occupied[i][1],
+          drawMask,
+          dimension,
+          item
+        );
       }
 
       if (drawMask) {
@@ -833,8 +946,7 @@ if (!window.clearImmediate) {
       // Skip the loop if we have already know the bounding box of
       // word is larger than the canvas.
       var bounds = info.bounds;
-      if ((bounds[1] - bounds[3] + 1) > ngx ||
-        (bounds[2] - bounds[0] + 1) > ngy) {
+      if (bounds[1] - bounds[3] + 1 > ngx || bounds[2] - bounds[0] + 1 > ngy) {
         return false;
       }
 
@@ -855,8 +967,17 @@ if (!window.clearImmediate) {
         }
 
         // Actually put the text on the canvas
-        drawText(gx, gy, info, word, weight,
-                 (maxRadius - r), gxy[2], rotateDeg, attributes);
+        drawText(
+          gx,
+          gy,
+          info,
+          word,
+          weight,
+          maxRadius - r,
+          gxy[2],
+          rotateDeg,
+          attributes
+        );
 
         // Mark the spaces on the grid as filled
         updateGrid(gx, gy, gw, gh, info, item);
@@ -928,9 +1049,9 @@ if (!window.clearImmediate) {
       }
 
       // Determine the center of the word cloud
-      center = (settings.origin) ?
-        [settings.origin[0]/g, settings.origin[1]/g] :
-        [ngx / 2, ngy / 2];
+      center = settings.origin
+        ? [settings.origin[0] / g, settings.origin[1] / g]
+        : [ngx / 2, ngy / 2];
 
       // Maxium radius to look for space
       maxRadius = Math.floor(Math.sqrt(ngx * ngx + ngy * ngy));
@@ -974,8 +1095,9 @@ if (!window.clearImmediate) {
         /* Read back the pixels of the canvas we got to tell which part of the
            canvas is empty.
            (no clearCanvas only works with a canvas, not divs) */
-        var imageData =
-          canvas.getContext('2d').getImageData(0, 0, ngx * g, ngy * g).data;
+        var imageData = canvas
+          .getContext('2d')
+          .getImageData(0, 0, ngx * g, ngy * g).data;
 
         gx = ngx;
         var x, y;
@@ -989,8 +1111,11 @@ if (!window.clearImmediate) {
               while (x--) {
                 i = 4;
                 while (i--) {
-                  if (imageData[((gy * g + y) * ngx * g +
-                                 (gx * g + x)) * 4 + i] !== bgPixel[i]) {
+                  if (
+                    imageData[
+                      ((gy * g + y) * ngx * g + (gx * g + x)) * 4 + i
+                    ] !== bgPixel[i]
+                  ) {
                     grid[gx][gy] = false;
                     break singleGridLoop;
                   }
@@ -1008,7 +1133,6 @@ if (!window.clearImmediate) {
 
       // fill the infoGrid with empty state if we need it
       if (settings.hover || settings.click) {
-
         interactive = true;
 
         /* fill the grid with empty state */
@@ -1071,10 +1195,12 @@ if (!window.clearImmediate) {
 
           return;
         }
-        escapeTime = (new Date()).getTime();
+        escapeTime = new Date().getTime();
         var drawn = putWord(settings.list[i]);
         var canceled = !sendEvent('wordclouddrawn', true, {
-          item: settings.list[i], drawn: drawn });
+          item: settings.list[i],
+          drawn: drawn,
+        });
         if (exceedTime() || canceled) {
           stoppingFunction(timer);
           settings.abort();
@@ -1097,9 +1223,10 @@ if (!window.clearImmediate) {
 
   // Expose the library as an AMD module
   if (typeof global.define === 'function' && global.define.amd) {
-    global.define('wordcloud', [], function() { return WordCloud; });
+    global.define('wordcloud', [], function() {
+      return WordCloud;
+    });
   } else {
     global.WordCloud = WordCloud;
   }
-
 })(window);
