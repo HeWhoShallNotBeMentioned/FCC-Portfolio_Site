@@ -76,6 +76,8 @@ div.transbox p {
   font-family: 'Spectral SC', serif;
 }
 
+
+
 .projects-config {
   background-color: black;
 }
@@ -199,7 +201,11 @@ div.transbox p {
 
 @media screen and (max-width: 768px) {
   #portfolio p {
-    font-size: 3em;
+    font-size: 4em;
+  }
+
+  .bio-text{
+    text-align: center;
   }
 
   #cloud {
