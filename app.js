@@ -36,7 +36,7 @@
       if (a.key.toUpperCase() > b.key.toUpperCase()) return 1;
       else return 0;
     });
-    console.table(arr);
+    // console.table(arr);
     return arr;
   }
 
