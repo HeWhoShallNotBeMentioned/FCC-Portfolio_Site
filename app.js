@@ -4,7 +4,20 @@
   const projectsObjects = [
     {
       dataTags:
-        'All, React, vanilla-JS, JSX, geolocation, API-Inbound, Axios, create-react-app, Heroku',
+        'All, React, create-react-app, JSX, vanilla-JS, Redux, Axios, React Router, JSON, Firebase, Jest, Enzyme, CSS Modules, Lazy Loading, Form Validation, Authentication, Environmental Variables, Webpack, API-Inbound, Babel, Google-fonts, NPM',
+      imageSrc: './images/burger-builder.png',
+      alt: 'Burger Builder App',
+      h4Title: 'Burger Builder',
+      pBodyText:
+        'This is a project that I did to further my understanding of React and related technologies. The project was basically done twice. The first time passing props to components by various means. The other way using Redux state management. For a thorough description of the technologies used, look in the technologies used section below on this page.',
+      webUrlLink: 'https://burger-builder-react-c4955.web.app/',
+      webUrlLabel: 'Website',
+      gitUrlLink: 'https://github.com/HeWhoShallNotBeMentioned/Burger_Builder',
+      gitUrlLabel: 'Github',
+    },
+    {
+      dataTags:
+        'All, React, vanilla-JS, JSX, geolocation, API-Inbound, Axios, JSON, create-react-app, Heroku, NPM',
       imageSrc: './images/weather.png',
       alt: 'Local Weather App',
       h4Title: 'Local Weather',
@@ -18,7 +31,7 @@
     },
     {
       dataTags:
-        'All, React, Node.js, NPM, JSX, Axios, React Router, API-Inbound, Firebase',
+        'All, React, Node.js, NPM, JSX, Axios, React Router, JSON, API-Inbound, Firebase',
       imageSrc: './images/github.png',
       alt: 'Github Battle',
       h4Title: 'Github Battle',
@@ -29,6 +42,20 @@
       gitUrlLink:
         'https://github.com/HeWhoShallNotBeMentioned/TM_React_Fundamentals',
       gitUrlLabel: 'GitHub',
+    },
+    {
+      dataTags:
+        'All, React, React Hooks, JSX, vanilla JS, Styled Components, NPM, Heroku',
+      imageSrc: './images/tetris.png',
+      alt: 'Tetris App',
+      h4Title: 'Tetris with React Hooks',
+      pBodyText:
+        'A Tetris project that randomly give you new shapes to fit into the existing board. Keeps track of the score, rows, and levels. It speeds up as you get faster. It is a front end only app, so it has no user accounts to save your score. I did the project to learn more about React Hooks.',
+      webUrlLink: 'https://react-weather-app-wilm.herokuapp.com/',
+      webUrlLabel: 'Website',
+      gitUrlLink:
+        'https://github.com/HeWhoShallNotBeMentioned/Tetris_React_Hooks',
+      gitUrlLabel: 'Github',
     },
     {
       dataTags:
