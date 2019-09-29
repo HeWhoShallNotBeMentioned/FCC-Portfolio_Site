@@ -45,13 +45,13 @@
     },
     {
       dataTags:
-        'All, React, React Hooks, JSX, vanilla JS, Styled Components, NPM, Heroku',
+        'All, React, React Hooks, JSX, vanilla-JS, Styled Components, NPM, Heroku',
       imageSrc: './images/tetris.png',
       alt: 'Tetris App',
       h4Title: 'Tetris with React Hooks',
       pBodyText:
         'A Tetris project that randomly give you new shapes to fit into the existing board. Keeps track of the score, rows, and levels. It speeds up as you get faster. It is a front end only app, so it has no user accounts to save your score. I did the project to learn more about React Hooks.',
-      webUrlLink: 'https://react-weather-app-wilm.herokuapp.com/',
+      webUrlLink: 'https://evening-escarpment-26783.herokuapp.com/',
       webUrlLabel: 'Website',
       gitUrlLink:
         'https://github.com/HeWhoShallNotBeMentioned/Tetris_React_Hooks',
@@ -402,7 +402,7 @@
     let x = word[0];
     let y = word[1].length;
     if (x == 'All') {
-      return ['All', 6];
+      return ['All', 8];
     }
     return [x, y];
   });
@@ -414,6 +414,6 @@
     backgroundColor: 'black',
     gridSize: 30,
     weightFactor: 8,
-    fontFamily: 'Nova Slim',
+    fontFamily: 'Alegreya SC',
   });
 })();
