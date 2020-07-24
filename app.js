@@ -4,7 +4,22 @@
   const projectsObjects = [
     {
       dataTags:
-        'All, React, create-react-app, JSX, vanilla-JS, Redux, Axios, React Router, JSON, Firebase, Jest, Enzyme, CSS Modules, Lazy Loading, Form Validation, Authentication, Environmental Variables, Webpack, API-Inbound, Babel, Google-fonts, NPM',
+        'All, MongoDB, Mongoose, Atlas, Postman, bcryptjs, colors, cookie-parser, cors, dotenv, Express.js, express-fileupload, express-mongo-sanitize, express-rate-limit, helmet, hpp, jsonwebtoken, morgan, node-geocoder, nodemailer, slugify, xss-clean, nodemon, docgen, Node.js, NPM, Heroku, API-Provide',
+      imageSrc: './images/DevCamper.jpg',
+      alt: 'DevCamper API App',
+      h4Title: 'DevCamper API',
+      pBodyText:
+        'The goal of this project was to be introducted to MongoDB and to complete a complex API with data relationships and users. I also wanted to become more familiar with Postman and documenting APIs. I spent a lot of focus on API security including the use of middleware and advanced Express.js functionality. For a complete list check the README.md on the Github repo.',
+      webUrlLink: 'http://devcamper-backend-api.herokuapp.com/',
+      webUrlLabel: 'API',
+      gitUrlLink:
+        'https://github.com/HeWhoShallNotBeMentioned/DevCamper_Backend',
+      gitUrlLabel: 'Github',
+    },
+
+    {
+      dataTags:
+        'All, React, create-react-app, JSX, vanilla-JS, Redux, Axios, React Router, JSON, Firebase, Jest, Enzyme, CSS Modules, Lazy Loading, Form Validation, Authentication, Environmental Variables, Webpack, API-Consume, Babel, Google-fonts, NPM',
       imageSrc: './images/burger-builder.png',
       alt: 'Burger Builder App',
       h4Title: 'Burger Builder',
@@ -17,7 +32,7 @@
     },
     {
       dataTags:
-        'All, React, vanilla-JS, JSX, geolocation, API-Inbound, Axios, JSON, create-react-app, Heroku, NPM',
+        'All, React, vanilla-JS, JSX, geolocation, API-Consume, Axios, JSON, create-react-app, Heroku, NPM',
       imageSrc: './images/weather.png',
       alt: 'Local Weather App',
       h4Title: 'Local Weather',
@@ -31,7 +46,7 @@
     },
     {
       dataTags:
-        'All, React, Node.js, NPM, JSX, Axios, React Router, JSON, API-Inbound, Firebase',
+        'All, React, Node.js, NPM, JSX, Axios, React Router, JSON, API-Consume, Firebase',
       imageSrc: './images/github.png',
       alt: 'Github Battle',
       h4Title: 'Github Battle',
@@ -59,7 +74,7 @@
     },
     {
       dataTags:
-        'All, React, PostgreSQL, Sequelize, Redux, Axios, JSX, socket.io, Express.js, NPM, Node.js, Webpack, Babel, Heroku',
+        'All, React, PostgreSQL, Sequelize, Redux, Axios, JSX, socket.io, Express.js, NPM, Node.js, Webpack, Babel, Heroku, API-Provide',
       imageSrc: './images/ratquest.png',
       alt: 'Rat Quest',
       h4Title: 'Rat Quest',
@@ -71,7 +86,7 @@
       gitUrlLabel: 'GitHub',
     },
     {
-      dataTags: 'All, vanilla-JS, Bootstrap, jQuery, AJAX, JSON, API-Inbound',
+      dataTags: 'All, vanilla-JS, Bootstrap, jQuery, AJAX, JSON, API-Consume',
       imageSrc: './images/employee-directory.png',
       alt: 'Employee Directory',
       h4Title: 'Employee Directory',
@@ -121,7 +136,7 @@
       gitUrlLabel: 'GitHub',
     },
     {
-      dataTags: 'All, vanilla-JS, API-Inbound, AJAX, Bootstrap, jQuery, JSON',
+      dataTags: 'All, vanilla-JS, API-Consume, AJAX, Bootstrap, jQuery, JSON',
       imageSrc: './images/wikipedia.png',
       alt: 'Wikipedia App',
       h4Title: 'Wikipedia Viewer',
