@@ -16,7 +16,6 @@
         'https://github.com/HeWhoShallNotBeMentioned/DevCamper_Backend',
       gitUrlLabel: 'Github',
     },
-
     {
       dataTags:
         'All, React, create-react-app, JSX, vanilla-JS, Redux, Axios, React Router, JSON, Firebase, Jest, Enzyme, CSS Modules, Lazy Loading, Form Validation, Authentication, Environmental Variables, Webpack, API-Consume, Babel, Google-fonts, NPM',
@@ -277,6 +276,19 @@
         'An article I wrote about the concepts around GraphQL. What it is. Why it was created. Why developers should care. The article is published on Medium. I wanted to learn more about GraphQL and strongly feel the best way to learn something is to teach it.',
       webUrlLink:
         'https://medium.com/@cunderwoodmn/so-what-is-graphql-anyway-b4367db3159e',
+      webUrlLabel: 'Article',
+      gitUrlLink: '',
+      gitUrlLabel: '',
+    },
+    {
+      dataTags: 'All, Article, VSCode, Node Debugger',
+      imageSrc: './images/VSCode.png',
+      alt: 'VSCode Logo',
+      h4Title: 'Visual Studio Code & Node Debugger: A Primer',
+      pBodyText:
+        'How I learned to use the built in debugger for Node.js applications. One of the essential things that every programmer needs to learn is how to do quickly and efficiently figure out how data is moving in their programs. This can be for debugging purposes or for understand existing code before/while making improvements.',
+      webUrlLink:
+        'https://medium.com/@cunderwoodmn/visual-studio-code-node-debugger-a-primer-65b954481ad1',
       webUrlLabel: 'Article',
       gitUrlLink: '',
       gitUrlLabel: '',
