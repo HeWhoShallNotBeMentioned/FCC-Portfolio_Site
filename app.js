@@ -4,7 +4,7 @@
   const projectsObjects = [
     {
       dataTags:
-        'All, MongoDB, Mongoose, Atlas, Postman, bcryptjs, colors, cookie-parser, cors, dotenv, Express.js, express-fileupload, express-mongo-sanitize, express-rate-limit, helmet, hpp, jsonwebtoken, morgan, node-geocoder, nodemailer, slugify, xss-clean, nodemon, docgen, Node.js, NPM, Heroku, API-Provide',
+        'All, MongoDB, Mongoose, Atlas, Postman, JSON, bcryptjs, colors, cookie-parser, cors, dotenv, Express.js, express-fileupload, express-mongo-sanitize, express-rate-limit, helmet, hpp, jsonwebtoken, morgan, node-geocoder, geolocation, nodemailer, slugify, xss-clean, nodemon, docgen, Node.js, environmental variables, NPM, Heroku, vanilla-JS, API-Provide',
       imageSrc: './images/DevCamper.jpg',
       alt: 'DevCamper API App',
       h4Title: 'DevCamper API',
@@ -18,7 +18,7 @@
     },
     {
       dataTags:
-        'All, React, create-react-app, JSX, vanilla-JS, Redux, Axios, React Router, JSON, Firebase, Jest, Enzyme, CSS Modules, Lazy Loading, Form Validation, Authentication, Environmental Variables, Webpack, API-Consume, Babel, Google-fonts, NPM',
+        'All, React, create-react-app, JSX, vanilla-JS, Redux, Axios, React Router, JSON, Firebase, Jest, Enzyme, CSS Modules, Lazy Loading, Form Validation, Firebase Authentication, environmental variables, Webpack, API-Consume, Babel, Google-fonts, NPM',
       imageSrc: './images/burger-builder.png',
       alt: 'Burger Builder App',
       h4Title: 'Burger Builder',
@@ -29,6 +29,20 @@
       gitUrlLink: 'https://github.com/HeWhoShallNotBeMentioned/Burger_Builder',
       gitUrlLabel: 'Github',
     },
+    {
+      dataTags:
+        'All, vanilla-JS, JSON, jsonwebtoken, environmental variables, NPM, Node.js, API-Provide, cors, dotenv, cookie-parser, body-parser, Express.js, Postman, docgen, Heroku, base-64, crypto-js, nodemon, pg, uuid',
+      imageSrc: './images/DragonStack.png',
+      alt: 'Dragon Stack API',
+      h4Title: 'Dragon Stack API',
+      pBodyText:
+        'A game to collect and breed dragons. This is a fullstack JavaScript application. The backend consists of a PostgreSQL relational database that store all of the dragon and account informtion. Communication is provided to the front end via 3 routers that 13 different APIs total.',
+      webUrlLink: 'https://dragonstack-backend-api.herokuapp.com/',
+      webUrlLabel: 'Website',
+      gitUrlLink: 'https://github.com/HeWhoShallNotBeMentioned/DragonStack',
+      gitUrlLabel: 'Github',
+    },
+
     {
       dataTags:
         'All, React, vanilla-JS, JSX, geolocation, API-Consume, Axios, JSON, create-react-app, Heroku, NPM',
